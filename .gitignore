@@ -22,3 +22,10 @@ docs/site/
 # committed for packages, but should be committed for applications that require a static
 # environment.
 Manifest.toml
+
+# JV stuff -
+.DS_Store
+
+# don't check in the data -
+data/20220113_R61_Legacy_Biochemical_Measurements.xlsx
+data/20220113_R61_Legacy_Biochemical_Measurements-JV.xlsx
