@@ -27,8 +27,6 @@ function balances(dx, x, p, t)
     r_forward = powerlaw(state_array, κ[:, 1], g)
     r_reverse = powerlaw(state_array, κ[:, 2], h)
 
-    @show (r_forward, r_reverse)
-
     # populate the dx vector -
     for i ∈ 1:number_of_dynamic_states
         dx[i] = S[i, 1] * r_forward[i] + S[i, 2] * r_reverse[i]

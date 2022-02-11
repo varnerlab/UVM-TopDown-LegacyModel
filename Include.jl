@@ -7,8 +7,10 @@ using DifferentialEquations
 using CSV
 using DataFrames
 using LinearAlgebra
+using Plots
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Balances.jl"))
 include(joinpath(_PATH_TO_SRC, "Kinetics.jl"))
-include(joinpath(_PATH_TO_SRC, "Data.jl"))
+include(joinpath(_PATH_TO_SRC, "Model.jl"))
+include(joinpath(_PATH_TO_SRC, "Parser.jl"))
