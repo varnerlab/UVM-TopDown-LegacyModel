@@ -1,34 +1,25 @@
 function balances(dx, x, p, t)
 
-    # initialize -
-    state_array = Array{Float64,1}()
-
     # grab data from the p dictionary -
-    κ = p["κ"]
-    g = p["g"]
-    h = p["h"]
-    f = p["static_factors"]
+    α = p["α"]
+    G = p["G"]
     S = p["S"]
-    number_of_dynamic_states = length(x)
-    number_of_static_states = length(f)
+    number_of_dynamic_states = p["number_of_dynamic_states"]
+    
+    # get the static factors (and thier values)
+    static_factors_array = p["static_factors_array"]
+    
+    # build the "state" array (dynamic | static)
+    state_array = vcat(x,static_factors_array)
 
-    # build the total factor array -
-    # dynamic states -
+    # compute the kinetics - powerlaw
+    rV = powerlaw(state_array,α,G)
+
+    # compute the rhs -> store in a temp vector
+    tmp = S*rV
+
+    # populate the dx vector with the tmp vector -
     for i ∈ 1:number_of_dynamic_states
-        push!(state_array, x[i])
-    end
-
-    # static states -
-    for i ∈ 1:number_of_static_states
-        push!(state_array, f[i])
-    end
-
-    # compute the power law kinetics -
-    r_forward = powerlaw(state_array, κ[:, 1], g)
-    r_reverse = powerlaw(state_array, κ[:, 2], h)
-
-    # populate the dx vector -
-    for i ∈ 1:number_of_dynamic_states
-        dx[i] = S[i, 1] * r_forward[i] + S[i, 2] * r_reverse[i]
+        dx[i] = tmp[i]
     end
 end

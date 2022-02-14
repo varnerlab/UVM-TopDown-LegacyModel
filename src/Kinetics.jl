@@ -1,18 +1,27 @@
-function powerlaw(x, k, order)
+function powerlaw(x, k, G)
 
-    # set negatives ot zero -
+    # set negatives to zero -
     x = max.(0.0, x)
 
-    # compute in log sapce -
-    a = log.(k)
-    y = log.(x)
-    number_of_dynamic_states = length(a)
+    # get system dimension -
+    ℛ = length(k)
+    ℳ = length(x)
 
-    tmp = Array{Float64,1}(undef, number_of_dynamic_states)
-    for s ∈ 1:number_of_dynamic_states
-        tmp[s] = a[s] + dot(order[s, :], y)
+    # initialize the rate array -
+    rate_array = Array{Float64,1}(undef,ℛ)
+
+    for i ∈ 1:ℛ
+        
+        # tmp -
+        tmp_value = 1.0
+        for j ∈ 1:ℳ
+            tmp_value = tmp_value*(x[j])^(G[j,i])
+        end
+
+        # store the rate value -
+        rate_array[i] = k[i]*tmp_value
     end
 
     # return -
-    return exp.(tmp)
+    return rate_array
 end

@@ -5,7 +5,7 @@ TFPI,AT,TF,TM,PC,TRAUMA,SURFACE
 #static::end
 
 #pragma::dynamic
-FII,FIIa,FVII,FVIIa,FV,FVa,FX,FXa,FVIII,FVIIIa,FIX,FIXa,FXI,FXIa,FXII,FXIIa
+FII,FVII,FV,FX,FVIII,FIX,FXI,FXII,FIIa,FVIIa,FVa,FXa,FVIIIa,FIXa,FXIa,FXIIa,FIIa_inactive
 #dynamic::end
 
 #pragma::structure
@@ -24,21 +24,17 @@ r8,FXII,FXIIa
 r9,FIIa,FIIa_inactive
 #structure::end
 
-#pragma::factor
-Z1,{FXIa OR FVIIa}
-#factor::end
-
 #pragma::rate
 // name,{factor_1,factor_2,....}
 // 1: name = reaction name (must be in the #pragma::structure section)
 // 2: list of factor symbols (can be both static and dynamic, order does not matter)
-r1,{FVII,TRAUMA}
-r2,{FVIII,FIIa}
-r3,{FIX,Z1}
-r4,{FV,FIIa}
-r5,{FX,FVIIa}
-r6,{FII,FXa,FVa}
-r7,{FXI,FXIIa}
-r8,{FXII,SURFACE}
-r9,{FIIa,AT}
+r1::{FVII,TRAUMA}
+r2::{FVIII,FIIa}
+r3::{FIX,FVIIa,FXIa}
+r4::{FV,FIIa}
+r5::{FX,FVIIa}
+r6::{FII,FXa,FVa}
+r7::{FXI,FXIIa}
+r8::{FXII,SURFACE}
+r9::{FIIa,AT}
 #rate::end

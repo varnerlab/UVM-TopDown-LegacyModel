@@ -13,4 +13,4 @@ using Plots
 include(joinpath(_PATH_TO_SRC, "Balances.jl"))
 include(joinpath(_PATH_TO_SRC, "Kinetics.jl"))
 include(joinpath(_PATH_TO_SRC, "Model.jl"))
-include(joinpath(_PATH_TO_SRC, "Parser.jl"))
+include(joinpath(_PATH_TO_SRC, "Factory.jl"))
