@@ -28,7 +28,7 @@ r9,FIIa,FIIa_inactive
 // name,{factor_1,factor_2,....}
 // 1: name = reaction name (must be in the #pragma::structure section)
 // 2: list of factor symbols (can be both static and dynamic, order does not matter)
-r1::{FVII,TRAUMA,TF}
+r1::{FVII,TRAUMA,TF,TFPI}
 r2::{FVIII,FIIa}
 r3::{FIX,FVIIa,FXIa}
 r4::{FV,FIIa}
