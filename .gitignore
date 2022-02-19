@@ -27,5 +27,6 @@ Manifest.toml
 .DS_Store
 
 # don't check in the data -
-data/20220113_R61_Legacy_Biochemical_Measurements.xlsx
 data/20220113_R61_Legacy_Biochemical_Measurements-JV.xlsx
+data/Thrombin-TF.xlsx
+data/Thrombin-TF.csv

@@ -18,9 +18,9 @@ sfa = dd["static_factors_array"]
 # sfa[3] = (5e-12)  # 3 TF
 # sfa[6] = (1e-9)   # 6 TRAUMA
 
-sfa[1] = (2.5e-9)*SF        # 1 TFPI
-sfa[2] = (3.4e-6)*SF        # 2 AT
-sfa[3] = (5e-12)*SF         # 3 TF
+sfa[1] = (2.5e-9) * SF        # 1 TFPI
+sfa[2] = (3.4e-6) * SF        # 2 AT
+sfa[3] = (5e-12) * SF         # 3 TF
 sfa[6] = 0.005              # 6 TRAUMA
 #sfa = SF*sfa
 
@@ -35,29 +35,30 @@ xₒ[6] = (9e-8)      # 6 FIX
 xₒ[7] = (1e-8)      # 7 FXI
 xₒ[8] = (1e-8)      # 8 FXII 
 xₒ[9] = (1e-13)     # 9 FIIa
-xₒ = SF*xₒ # convert to nmol
+xₒ = SF * xₒ # convert to nmol
 
 # update α -
 α = dd["α"]
-α[1] = 0.05
+α[1] = 0.061
 α[9] = 0.70
 
 # update the G -
 G = dd["G"]
-G[10,4] = 0.1
+idx = indexin(dd, "FVIIa")
+G[idx, 4] = 0.1
 
 # what is the index of TRAUMA?
-idx = indexin(dd,"AT")
-G[idx,9] = 0.01
+idx = indexin(dd, "AT")
+G[idx, 9] = 0.05
 
 # what is the index of TFPI?
-idx = indexin(dd,"TFPI")
-G[idx,1] = -0.75
+idx = indexin(dd, "TFPI")
+G[idx, 1] = -0.65
 
 # Phase 3: solve the model -
 # setup the solver -
 tspan = (0.0, 20.0)
-prob = ODEProblem(balances, xₒ, tspan, dd; saveat=0.01)
+prob = ODEProblem(balances, xₒ, tspan, dd; saveat = 0.01)
 soln = solve(prob)
 
 T = soln.t
