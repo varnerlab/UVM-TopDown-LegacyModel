@@ -11,8 +11,9 @@ dd = build_default_model_dictionary(model_buffer)
 
 # Phase 2: customize the dictionary -
 sfa = dd["static_factors_array"]
+sfa[2] = 1.0
 sfa[3] = 1.0
-sfa[6] = 1.0
+sfa[6] = 0.01
 
 ℳ = dd["number_of_dynamic_states"]
 xₒ = zeros(ℳ)
@@ -24,7 +25,18 @@ xₒ[5] = 10.0
 xₒ[6] = 10.0
 xₒ[7] = 10.0
 xₒ[8] = 10.0
+xₒ[9] = 0.0001
 
+# update the G -
+G = dd["G"]
+G[10,4] = 0.1
+
+# what is the index of TRAUMA?
+idx = indexin(dd,"TRAUMA")
+G[idx,1] = 1.0
+dd["G"] = G
+
+# Phase 3: solve the model -
 # setup the solver -
 tspan = (0.0, 10.0)
 prob = ODEProblem(balances, xₒ, tspan, dd)
