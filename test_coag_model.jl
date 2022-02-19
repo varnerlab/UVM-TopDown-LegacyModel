@@ -9,32 +9,40 @@ model_buffer = read_model_file(path_model_file)
 # build the default dictionary -
 dd = build_default_model_dictionary(model_buffer)
 
+
 # Phase 2: customize the dictionary -
+SF = 1e9 # all concentrations are in nmol/L
 sfa = dd["static_factors_array"]
-sfa[2] = 1.0
-sfa[3] = 1.0
-sfa[6] = 0.01
+# sfa[1] = (2.5e-9) # 1 TFPI
+# sfa[2] = (3.4e-6) # 2 AT
+# sfa[3] = (5e-12)  # 3 TF
+# sfa[6] = (1e-9)   # 6 TRAUMA
+
+sfa[2] = (3.4e-6)*SF        # 2 AT
+sfa[3] = (5e-12)*SF         # 3 TF
+sfa[6] = 0.001              # 6 TRAUMA
+#sfa = SF*sfa
 
 ℳ = dd["number_of_dynamic_states"]
 xₒ = zeros(ℳ)
-xₒ[1] = 10.0
-xₒ[2] = 10.0
-xₒ[3] = 10.0
-xₒ[4] = 10.0
-xₒ[5] = 10.0
-xₒ[6] = 10.0
-xₒ[7] = 10.0
-xₒ[8] = 10.0
-xₒ[9] = 0.0001
+xₒ[1] = (1.4e-6)    # 1 FII 
+xₒ[2] = (1e-8)      # 2 FVII 
+xₒ[3] = (2e-8)      # 3 FV
+xₒ[4] = (1.6e-7)    # 4 FX
+xₒ[5] = (7e-10)     # 5 FVIII
+xₒ[6] = (9e-8)      # 6 FIX
+xₒ[7] = (1e-8)      # 7 FXI
+xₒ[8] = (1e-8)      # 8 FXII 
+xₒ[9] = (1e-13)     # 9 FIIa
+xₒ = SF*xₒ # convert to nmol
 
 # update the G -
 G = dd["G"]
 G[10,4] = 0.1
 
 # what is the index of TRAUMA?
-idx = indexin(dd,"TRAUMA")
-G[idx,1] = 1.0
-dd["G"] = G
+idx = indexin(dd,"AT")
+G[idx,9] = 0.01
 
 # Phase 3: solve the model -
 # setup the solver -
