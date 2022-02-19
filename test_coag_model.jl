@@ -20,7 +20,7 @@ sfa = dd["static_factors_array"]
 
 sfa[2] = (3.4e-6)*SF        # 2 AT
 sfa[3] = (5e-12)*SF         # 3 TF
-sfa[6] = 0.001              # 6 TRAUMA
+sfa[6] = 0.01              # 6 TRAUMA
 #sfa = SF*sfa
 
 ℳ = dd["number_of_dynamic_states"]
@@ -47,7 +47,7 @@ G[idx,9] = 0.01
 # Phase 3: solve the model -
 # setup the solver -
 tspan = (0.0, 10.0)
-prob = ODEProblem(balances, xₒ, tspan, dd)
+prob = ODEProblem(balances, xₒ, tspan, dd; saveat=0.01)
 soln = solve(prob)
 
 T = soln.t
