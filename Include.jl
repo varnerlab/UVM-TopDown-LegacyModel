@@ -13,6 +13,7 @@ using DataFrames
 using StatsPlots
 using Statistics
 using NumericalIntegration
+using Flux
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Balances.jl"))
@@ -21,3 +22,5 @@ include(joinpath(_PATH_TO_SRC, "Compute.jl"))
 include(joinpath(_PATH_TO_SRC, "Factory.jl"))
 include(joinpath(_PATH_TO_SRC, "Utilities.jl"))
 include(joinpath(_PATH_TO_SRC, "Data.jl"))
+include(joinpath(_PATH_TO_SRC, "Model.jl"))
+include(joinpath(_PATH_TO_SRC, "Deep.jl"))
