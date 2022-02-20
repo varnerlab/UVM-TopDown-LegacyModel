@@ -70,3 +70,7 @@ function peak_time(T::Array{Float64,2}, X::Array{Float64,2})::Array{Float64,1}
     # return -
     return peak_time_array
 end
+
+function auc(T::Array{Float64,1}, X::Array{Float64,1})::Float64
+    return integrate(T, X)
+end

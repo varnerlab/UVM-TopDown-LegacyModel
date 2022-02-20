@@ -12,6 +12,7 @@ using Plots
 using DataFrames
 using StatsPlots
 using Statistics
+using NumericalIntegration
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Balances.jl"))
