@@ -10,10 +10,10 @@ output_data = convert.(Float32, Matrix(experimental_data_table[!,14:18]))
 training_data = zip(input_data, output_data)
 
 # build a model architecture -
-deep_coag_model = Chain(Dense(11, 8, σ), Dense(8, 5));
+deep_coag_model = Chain(Dense(11, 7, σ), Dense(7, 5));
 
 # setup a loss function -
-loss(x, y) = Flux.Losses.logitcrossentropy(deep_coag_model(x), y)
+loss(x, y) = Flux.Losses.mae(deep_coag_model(x), y)
 
 # pointer to params -
 ps = Flux.params(deep_coag_model)
@@ -23,7 +23,7 @@ opt = Descent(0.1)
 
 # train -
 using Flux: @epochs
-@epochs 1000 Flux.train!(loss, ps, [(transpose(input_data), transpose(output_data))], opt)
+@epochs 5000 Flux.train!(loss, ps, [(transpose(input_data), transpose(output_data))], opt)
 
 
 
