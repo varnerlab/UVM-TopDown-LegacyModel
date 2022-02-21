@@ -10,7 +10,7 @@ output_data = convert.(Float32, Matrix(experimental_data_table[!,14:18]))
 training_data = [(transpose(input_data), transpose(output_data))]
 
 # build a model architecture -
-deep_coag_model = Chain(Dense(11, 7, σ), Dense(7, 5));
+deep_coag_model = Chain(Dense(11, 7, σ), Dense(7, 7, σ), Dense(7, 5));
 
 # setup a loss function -
 loss(x, y) = Flux.Losses.mae(deep_coag_model(x), y)
@@ -28,14 +28,6 @@ using BSON: @save
 
 # save -
 @save "deep_coag_model.bson" deep_coag_model
-
-Z = zeros(30,5)
-for i ∈ 1:30
-    tmp = deep_coag_model(input_data[i,:])
-    for j ∈ 1:5
-        Z[i,j] = tmp[j]
-    end
-end
 
 
 
