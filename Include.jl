@@ -18,6 +18,7 @@ using StatsBase
 using Statistics
 using NumericalIntegration
 using Distributions
+using PrettyTables
 using BSON: @load
 using BSON: @save
 
