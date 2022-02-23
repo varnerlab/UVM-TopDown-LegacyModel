@@ -23,14 +23,14 @@ model_file_path = joinpath(_PATH_TO_MODELS, "deep_coag_model.bson")
 @load model_file_path deep_coag_model
 
 # generate a set of samples -
-number_of_samples = 1000
+number_of_samples = 10000
 number_of_outputs = 5
 sample_input_array_normal = Matrix(transpose(rand(𝒩, number_of_samples)))
 sample_output_array_normal = sample(deep_coag_model, sample_input_array_normal)
 
 # sample w/diff range -
 number_of_input_types = 11
-δ = 0.90
+δ = 0.10
 input_range_array = Array{Float32,2}(undef,number_of_input_types,2)
 for i ∈ 1:number_of_input_types
     L = (1-δ)*minimum(input_data[:,i])
