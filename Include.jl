@@ -2,6 +2,9 @@
 _BASE_PATH = pwd()
 _PATH_TO_SRC = joinpath(_BASE_PATH, "src")
 _PATH_TO_DATA = joinpath(_BASE_PATH, "data")
+_PATH_TO_MODELS = joinpath(_BASE_PATH, "models")
+_PATH_TO_FIGS = joinpath(_BASE_PATH, "figs")
+
 
 # load external packages -
 using DifferentialEquations
@@ -14,7 +17,7 @@ using StatsPlots
 using StatsBase
 using Statistics
 using NumericalIntegration
-using Flux
+using Distributions
 using BSON: @load
 using BSON: @save
 

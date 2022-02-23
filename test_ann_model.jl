@@ -1,10 +1,13 @@
 include("Include.jl")
 
+# extra:
+using Flux
+using Flux: @epochs
+using BSON: @save
+
 # load the data -
 path_data_file = joinpath(_PATH_TO_DATA, "Thrombin-TF.csv")
 experimental_data_table = load(path_data_file)
-
-# trans
 
 # get input and output data -
 number_training_samples = 27
@@ -25,12 +28,11 @@ ps = Flux.params(deep_coag_model)
 opt = Momentum(0.05, 0.95)
 
 # # train -
-using Flux: @epochs
-using BSON: @save
 @epochs 10000 Flux.train!(loss, ps, training_data, opt)
 
 # save -
-@save "deep_coag_model.bson" deep_coag_model
+model_file_path = joinpath(_PATH_TO_MODELS, "deep_coag_model.bson")
+@save model_file_path deep_coag_model
 
 
 
