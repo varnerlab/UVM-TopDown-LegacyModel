@@ -11,7 +11,7 @@ full_data_table_TF_TM = load(path_data_file_TF_TM)
 full_training_data_frame = vcat(full_data_table_TF, full_data_table_TF_TM)
 
 # filter -
-has_TM_flag = 1
+has_TM_flag = 0
 experimental_data_table = filter([:visitid, :TM] => (x, y) -> (x == 2 || x == 3) && y == has_TM_flag, full_training_data_frame)
 
 # get input and output data -
@@ -36,7 +36,7 @@ sample_output_array_normal = sample(deep_coag_model, sample_input_array_normal)
 
 # sample w/diff range -
 number_of_input_types = 12
-δ = 0.10
+δ = 0.9
 input_range_array = Array{Float32,2}(undef, number_of_input_types, 2)
 for i ∈ 1:number_of_input_types
     L = (1 - δ) * minimum(input_data[:, i])

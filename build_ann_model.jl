@@ -13,7 +13,7 @@ full_data_table_TF_TM = load(path_data_file_TF_TM)
 full_training_data_frame = vcat(full_data_table_TF, full_data_table_TF_TM)
 
 # filter -
-has_TM_flag = 1
+has_TM_flag = 0
 experimental_data_table = filter([:visitid, :TM] => (x, y) -> (x == 2 || x == 3), full_training_data_frame)
 
 # get input and output data -
