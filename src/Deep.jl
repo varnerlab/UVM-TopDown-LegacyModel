@@ -14,3 +14,7 @@ function sample(model, input::Array{Float32,2};
 
     return output_array
 end
+
+function sample(model, input::Vector{Float32})::Vector{Float32}
+    return model(input)
+end
