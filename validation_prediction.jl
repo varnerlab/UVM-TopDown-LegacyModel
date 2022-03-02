@@ -18,7 +18,7 @@ experimental_data_table = filter([:visitid, :TM] => (x, y) -> ((x == 2 || x == 3
 # initialize some space -
 outdim = 5
 validation_data_array = Array{Float32,2}(undef, P, outdim)
-simulated_data_array = Array{Float32,2}(undef, P, outdim)
+S = Array{Float32,2}(undef, P, outdim)
 
 # main training loop -
 for i ∈ 1:P
@@ -38,6 +38,6 @@ for i ∈ 1:P
     # package the data -
     for j ∈ 1:outdim
         validation_data_array[i,j] = validation_output_data[j]
-        simulated_data_array[i,j] = max.(0, simulated_output_data[j])
+        S[i,j] = max.(0, simulated_output_data[j])
     end
 end
