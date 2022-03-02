@@ -16,7 +16,7 @@ experimental_data_table = filter([:visitid, :TM] => (x, y) -> ((x == 2 || x == 3
 training_data = Vector{Tuple{Vector{Float32}, Vector{Float32}}}()
 
 # build a model architecture -
-deep_coag_model = Chain(Dense(12, 12, σ), Dense(12, 5));
+deep_coag_model = Chain(Dense(12, 16, σ), Dense(16, 5));
 
 # setup a loss function -
 loss(x, y) = Flux.Losses.mae(deep_coag_model(x), y; agg = mean)
@@ -25,7 +25,7 @@ loss(x, y) = Flux.Losses.mae(deep_coag_model(x), y; agg = mean)
 ps = Flux.params(deep_coag_model)
 
 # # use old school gradient descent -
-opt = Momentum(0.25, 0.95)
+opt = Momentum(0.1, 0.95)
 
 # main training loop -
 (P,D) = size(experimental_data_table)
@@ -48,7 +48,7 @@ for i ∈ 1:P
 
     # ok, so have the training data for this case -
     # train -
-    @epochs 10000 Flux.train!(loss, ps, training_data, opt)
+    @epochs 12000 Flux.train!(loss, ps, training_data, opt)
 
     # save -
     model_name = "deep_coag_model-L$(i)O-TF-TM-$(has_TM_flag)-V2-V3.bson"

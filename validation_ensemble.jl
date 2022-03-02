@@ -42,6 +42,6 @@ for i ∈ 1:P
         simulated_output_data = sample(deep_coag_model, validation_input_data)
 
         # grab -
-        push!(simulated_data_array,max.(0.0, simulated_output_data))
+        push!(simulated_data_array,abs.(simulated_output_data))
     end
 end
