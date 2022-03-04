@@ -47,11 +47,11 @@ for i ∈ 1:number_of_samples
 end
 
 # main training loop -
-for i ∈ 1:31
+for i ∈ 1:39
 
     # load a model -
     model_name = "deep_fibrinolysis_model-L$(i)O-TF-TM-$(has_TM_flag)-ALL.bson"
-    model_file_path = joinpath(_PATH_TO_MODELS, model_name)
+    model_file_path = joinpath(_PATH_TO_MODELS, "network-2-all-data-epoch-12k", model_name)
     @load model_file_path deep_fibrinolysis_model
 
     # sample -
