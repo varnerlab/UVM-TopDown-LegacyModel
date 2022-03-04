@@ -24,7 +24,7 @@ b[4] = 29.56
 b[5] = 415.97
 
 # how many synthetic models do we have?
-ℳ = 98
+ℳ = 24
 
 # initialize some space -
 outdim = 5
@@ -53,10 +53,10 @@ end
 
 # load a specific model -
 output_dict = Dict{Int,Matrix{Float32}}()
-mv = 1:98
+mv = 1:ℳ
 for m ∈ mv
-    model_name = "deep_coag_model-L$(m)O-TF-TM-$(has_TM_flag)-synthetic-V2-V3.bson"
-    model_file_path = joinpath(_PATH_TO_MODELS, model_name)
+    model_name = "deep_coag_model-L$(m)O-TF-TM-$(has_TM_flag)-V2-V3.bson"
+    model_file_path = joinpath(_PATH_TO_MODELS, "network-1-epoch-12k", model_name)
     @load model_file_path deep_coag_model
     tmp = sample(deep_coag_model, validation_input_data_array)
     output_dict[m] = tmp
@@ -77,3 +77,25 @@ for p ∈ 1:P
     patient_specific_dict[p] = V
 end
 
+# make some plots -
+# NP = 1
+# oi = 5
+# for i ∈ 1:NP
+
+#     Z = patient_specific_dict[1][rand(1:ℳ, 24), oi]
+#     if (i == 1)
+#         scatter(Z, validation_output_data_array[:, oi], legend = false, xlims = (1600.0, 2200.0), ylims = (1600.0, 2200.0), ms = 4)
+#     else
+#         scatter!(Z, validation_output_data_array[:, oi])
+#     end
+
+#     xlabel!("Simulated peak time (min)", fontsize = 18)
+#     ylabel!("Measured peak time (min)", fontsize = 18)
+# end
+# current()
+
+oi = 1
+Z = patient_specific_dict[1][:, oi]
+scatter(Z, validation_output_data_array[:, oi], legend = false, xlims = (1600.0, 2200.0), ylims = (1600.0, 2200.0), ms = 4)
+xlabel!("Simulated AUC (nM*min)", fontsize = 18)
+ylabel!("Measured AUC (nM*min)", fontsize = 18)
