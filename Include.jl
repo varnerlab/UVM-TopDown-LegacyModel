@@ -21,6 +21,7 @@ using Distributions
 using PrettyTables
 using BSON: @load
 using BSON: @save
+using Tables
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Balances.jl"))

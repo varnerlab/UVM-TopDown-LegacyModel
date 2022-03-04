@@ -6,7 +6,7 @@ using Flux: @epochs
 using BSON: @load
 
 # load training set -
-full_training_data_frame = load_training_data()
+full_training_data_frame = load_tga_training_data()
 
 # filter -
 has_TM_flag = 0
@@ -15,7 +15,7 @@ input_data = convert.(Float32, Matrix(experimental_data_table[!, 3:14]))
 validation_data_array = convert.(Float32, Matrix(experimental_data_table[!, 15:19]))
 
 # what is the size of the system?
-(P,D) = size(experimental_data_table)
+(P, D) = size(experimental_data_table)
 
 # setup sampling -
 δ = 0.9
@@ -53,14 +53,24 @@ for i ∈ 1:P
 
     # load a model -
     model_name = "deep_coag_model-L$(i)O-TF-TM-$(has_TM_flag)-V2-V3.bson"
-    model_file_path = joinpath(_PATH_TO_MODELS, model_name)
+    model_file_path = joinpath(_PATH_TO_MODELS, "network-1-epoch-12k", model_name)
     @load model_file_path deep_coag_model
 
-    
+
     # sample -
     simulated_output_data = sample(deep_coag_model, sample_input_array_random)
     push!(ensemble_archive, simulated_output_data)
 end
 
+
 S = vcat(ensemble_archive...)
+
+# save -
+# path_to_input = joinpath(_PATH_TO_DATA, "synthetic_input_array.dat")
+# CSV.write(path_to_input, Tables.table(sample_input_array_random))
+
+# path_to_output = joinpath(_PATH_TO_DATA, "synthetic_output_array.dat")
+# CSV.write(path_to_output, Tables.table(S))
+
+
 

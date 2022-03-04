@@ -14,7 +14,7 @@ xlabel_text = "Area under FIIa curve (nmol-min/L)"
 dm = Normal(mean(S[:, output_index]), std(S[:, output_index]))
 dd = Normal(mean(validation_data_array[:, output_index]), std(validation_data_array[:, output_index]))
 μ_bias = mean(dd) - mean(dm)
-μ_bias = 0.0 # no mean correction
+#μ_bias = 0.0 # no mean correction
 
 # sample -
 number_of_samples = 10000
@@ -32,5 +32,5 @@ ylabel!("Frequency of occurance (dimensionless)", fontsize = 18)
 
 # dump fig -
 fig_file_name = "Fig-distribution-OI-$(output_index)-P-TM-0-MC-0.pdf"
-savefig(joinpath(_PATH_TO_FIGS, fig_file_name))
+# savefig(joinpath(_PATH_TO_FIGS, fig_file_name))
 
