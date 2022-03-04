@@ -24,7 +24,7 @@ b[4] = 29.56
 b[5] = 415.97
 
 # how many synthetic models do we have?
-ℳ = 85
+ℳ = 98
 
 # initialize some space -
 outdim = 5
@@ -53,7 +53,8 @@ end
 
 # load a specific model -
 output_dict = Dict{Int,Matrix{Float32}}()
-for m ∈ 1:ℳ
+mv = 1:98
+for m ∈ mv
     model_name = "deep_coag_model-L$(m)O-TF-TM-$(has_TM_flag)-synthetic-V2-V3.bson"
     model_file_path = joinpath(_PATH_TO_MODELS, model_name)
     @load model_file_path deep_coag_model
@@ -66,7 +67,7 @@ patient_specific_dict = Dict()
 for p ∈ 1:P
 
     VA = Array{Vector{Float32},1}()
-    for m ∈ 1:ℳ
+    for m ∈ mv
         local_model = output_dict[m]
         v = local_model[p, :]
         push!(VA, v)
